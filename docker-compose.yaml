@@ -1,0 +1,24 @@
+services:
+  traffic-engine:
+    build:
+      context: .
+      dockerfile: deploy/docker/Dockerfile
+    container_name: visionflow_container
+    runtime: nvidia
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=all
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    volumes:
+      # Mount trực tiếp code, data và kết quả để sửa code ở ngoài máy host thì bên trong container nhận ngay
+      - .:/workspace
+      - ./data:/workspace/data
+      - ./weights:/workspace/weights
+    ipc: host # Tránh lỗi tràn bộ nhớ chia sẻ khi dataloader chạy đa luồng
+    working_dir: /workspace
+    command: bash

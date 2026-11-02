@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "visionflow"
+version = "1.0.0"
+description = "Dataset-Agnostic Real-Time Traffic Analytics Engine powered by YOLO26"
+readme = "README.md"
+requires-python = ">=3.9"
+dependencies = [
+    "ultralytics>=8.4.0",
+    "lap>=0.5.12",
+    "opencv-python>=4.9.0",
+    "numpy>=1.24.0",
+    "pandas>=2.0.0",
+    "pyyaml>=6.0",
+    "fastapi>=0.110.0",
+    "uvicorn>=0.29.0",
+    "flask>=3.0.0",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+"visionflow.api" = ["template/*.html", "static/css/*.css", "static/js/*.js"]

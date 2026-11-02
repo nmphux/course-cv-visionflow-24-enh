@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Model{% endblock %}
+{% block breadcrumb %}Model{% endblock %}
+{% block content %}
+<section class="page-heading">
+  <div class="eyebrow" data-i18n="deployment">DEPLOYMENT</div><h1 data-i18n="modelTitle">Your model, in production.</h1><p data-i18n="modelSubtitle">Check the trained checkpoint backing live streams and on-demand inference.</p>
+</section>
+<section class="content-grid model-grid">
+  <article class="panel model-primary-panel">
+    <div class="model-artifact-icon">⬡</div>
+    <div class="eyebrow" data-i18n="activeCheckpoint">ACTIVE CHECKPOINT</div>
+    <h2>{{ model.name }}</h2>
+    <p class="model-path">{{ model.path }}</p>
+    <div class="model-status-line"><span class="status-pill {{ 'status-online' if model.available else 'status-offline' }}"><span class="status-dot {{ 'is-ready' if model.available else 'is-offline' }}"></span><span data-i18n="{{ 'weightsAvailable' if model.available else 'weightsUnavailable' }}">{{ 'Weights available' if model.available else 'Weights unavailable' }}</span></span><span class="model-size">{{ model.size_mb ~ ' MB' if model.size_mb is not none else '' }}</span></div>
+    <div class="model-cta"><a class="button button-primary" href="{{ url_for('inference_page') }}"><span data-i18n="tryInference">Try an inference</span><span>→</span></a><span data-i18n="bestCheckpointHint">Configured by model.trained_weights</span></div>
+  </article>
+  <article class="panel">
+    <div class="panel-heading"><div><h2 data-i18n="modelClasses">Model classes</h2><p data-i18n="modelClassesHelp">Labels embedded in the trained checkpoint.</p></div></div>
+    <div class="class-chip-list" id="model-classes"><span class="loading-state"><span class="spinner"></span><span data-i18n="loadingModel">Loading model details…</span></span></div>
+  </article>
+</section>
+<section class="panel model-details-panel">
+  <div class="panel-heading"><div><h2 data-i18n="deploymentNotes">Deployment notes</h2><p data-i18n="deploymentNotesHelp">How the application connects your trained model to production features.</p></div></div>
+  <div class="feature-list deployment-list">
+    <div class="feature-row"><span class="deployment-number">01</span><span><strong data-i18n="modelNoteOne">Single source of truth</strong><small data-i18n="modelNoteOneHelp">The checkpoint path is read from configs/pipeline_config.yaml and defaults to weights/best.pt.</small></span></div>
+    <div class="feature-row"><span class="deployment-number">02</span><span><strong data-i18n="modelNoteTwo">Live camera inference</strong><small data-i18n="modelNoteTwoHelp">Each connected camera runs object tracking with this trained model.</small></span></div>
+    <div class="feature-row"><span class="deployment-number">03</span><span><strong data-i18n="modelNoteThree">On-demand processing</strong><small data-i18n="modelNoteThreeHelp">Images and videos can be analyzed and downloaded in the Inference Lab.</small></span></div>
+  </div>
+</section>
+{% endblock %}
+{% block scripts %}<script src="{{ url_for('static', filename='js/model.js') }}" defer></script>{% endblock %}

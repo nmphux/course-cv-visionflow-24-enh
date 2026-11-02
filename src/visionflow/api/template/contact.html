@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}Support{% endblock %}
+{% block breadcrumb %}Support{% endblock %}
+{% block content %}
+<section class="page-heading">
+  <div class="eyebrow" data-i18n="helpCenter">HELP CENTER</div>
+  <h1 data-i18n="supportTitle">Let's keep your operation moving.</h1>
+  <p data-i18n="supportSubtitle">Quick guidance for getting VisionFlow connected and ready to work.</p>
+</section>
+<section class="content-grid support-grid">
+  <article class="panel">
+    <div class="panel-heading"><div><h2 data-i18n="gettingStarted">Getting started</h2><p data-i18n="gettingStartedSubtitle">Follow these steps to bring your first camera online.</p></div></div>
+    <ol class="steps-list">
+      <li><span>01</span><div><strong data-i18n="stepOne">Verify the trained checkpoint</strong><p data-i18n="stepOneHelp">Place your best.pt file at the path configured in pipeline_config.yaml.</p></div></li>
+      <li><span>02</span><div><strong data-i18n="stepTwo">Connect a camera</strong><p data-i18n="stepTwoHelp">Add a local device index or an RTSP/RTSPS stream URL.</p></div></li>
+      <li><span>03</span><div><strong data-i18n="stepThree">Review live activity</strong><p data-i18n="stepThreeHelp">Open Analytics to see the detections reported by active feeds.</p></div></li>
+    </ol>
+  </article>
+  <article class="panel support-card">
+    <span class="support-icon">✉</span>
+    <h2 data-i18n="needHelp">Need a hand?</h2>
+    <p data-i18n="needHelpText">For project or deployment questions, contact the VisionFlow team.</p>
+    <a class="button button-secondary" href="mailto:52100920@student.tdtu.edu.vn">Contact the team <span>↗</span></a>
+    <div class="support-note" data-i18n="privacyTip">Camera source credentials are kept in application memory and are not written to a config file.</div>
+  </article>
+</section>
+{% endblock %}

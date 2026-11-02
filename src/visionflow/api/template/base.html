@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f5f7fb">
+    <title>{% block title %}VisionFlow{% endblock %} · VisionFlow</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    {% block head %}{% endblock %}
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar" id="sidebar">
+        <a class="brand" href="{{ url_for('overview') }}" aria-label="VisionFlow overview">
+          <svg class="brand-symbol" viewBox="0 0 40 40" role="img" aria-label="VisionFlow logo">
+            <defs>
+              <linearGradient id="visionflow-mark" x1="5" y1="4" x2="35" y2="36" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#6482ff"/>
+                <stop offset="1" stop-color="#3451cf"/>
+              </linearGradient>
+            </defs>
+            <rect x="1" y="1" width="38" height="38" rx="12" fill="url(#visionflow-mark)"/>
+            <path d="M9 15V9h6M31 15V9h-6M9 25v6h6M31 25v6h-6" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-opacity=".58" stroke-width="1.5"/>
+            <path d="m13 13 7 15 7-15" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"/>
+            <circle cx="20" cy="28" r="2.1" fill="#9ff4dc"/>
+            <circle cx="30" cy="10" r="1.5" fill="#9ff4dc"/>
+          </svg>
+          <span class="brand-copy"><strong class="brand-wordmark"><span>vision</span><span class="brand-accent">Flow</span></strong><small>TRAFFIC INTELLIGENCE · YOLO26</small></span>
+        </a>
+        <div class="nav-caption" data-i18n="workspace">WORKSPACE</div>
+        <nav class="primary-nav" aria-label="Primary navigation">
+          <a class="nav-link {{ 'active' if active_page == 'overview' }}" href="{{ url_for('overview') }}"><span class="nav-icon">⌂</span><span data-i18n="overview">Overview</span></a>
+          <a class="nav-link {{ 'active' if active_page == 'cameras' }}" href="{{ url_for('cameras_page') }}"><span class="nav-icon">▣</span><span data-i18n="cameras">Cameras</span><span class="nav-count" id="nav-camera-count">0</span></a>
+          <a class="nav-link {{ 'active' if active_page == 'analytics' }}" href="{{ url_for('analytics_page') }}"><span class="nav-icon">⌁</span><span data-i18n="analytics">Analytics</span></a>
+          <a class="nav-link {{ 'active' if active_page == 'inference' }}" href="{{ url_for('inference_page') }}"><span class="nav-icon">◈</span><span data-i18n="inference">Inference lab</span></a>
+          <a class="nav-link {{ 'active' if active_page == 'model' }}" href="{{ url_for('model_page') }}"><span class="nav-icon">⬡</span><span data-i18n="model">Model</span></a>
+        </nav>
+        <div class="nav-caption nav-caption-secondary" data-i18n="workspaceInfo">WORKSPACE INFO</div>
+        <nav class="primary-nav">
+          <a class="nav-link {{ 'active' if active_page == 'about' }}" href="{{ url_for('about') }}"><span class="nav-icon">ⓘ</span><span data-i18n="about">About</span></a>
+          <a class="nav-link {{ 'active' if active_page == 'contact' }}" href="{{ url_for('contact') }}"><span class="nav-icon">✉</span><span data-i18n="support">Support</span></a>
+        </nav>
+        <div class="sidebar-bottom">
+          <div class="model-mini">
+            <span class="status-dot {{ 'is-ready' if model.available else 'is-offline' }}"></span>
+            <span><strong data-i18n="modelStatus">Model status</strong><small>{{ model.name if model.available else 'Weights not found' }}</small></span>
+            <a href="{{ url_for('model_page') }}" class="mini-arrow" aria-label="Model details">↗</a>
+          </div>
+          <div class="language-switch" role="group" aria-label="Language" data-i18n-aria-label="language">
+            <button type="button" class="language-option" data-language="en" aria-pressed="true">EN</button>
+            <button type="button" class="language-option" data-language="vi" aria-pressed="false">VI</button>
+          </div>
+          <div class="sidebar-footnote">VISIONFLOW · YOLO26</div>
+        </div>
+      </aside>
+
+      <div class="main-shell">
+        <header class="topbar">
+          <button type="button" class="mobile-menu" id="mobile-menu" aria-label="Open navigation">☰</button>
+          <div class="breadcrumb"><span data-i18n="workspace">WORKSPACE</span><span class="breadcrumb-separator">/</span><strong data-i18n="{{ 'support' if active_page == 'contact' else active_page }}">{% block breadcrumb %}Overview{% endblock %}</strong></div>
+          <div class="topbar-actions">
+            <span class="system-status"><span class="status-dot {{ 'is-ready' if model.available else 'is-offline' }}"></span><span data-i18n="{{ 'systemReady' if model.available else 'modelUnavailable' }}">{{ 'Inference ready' if model.available else 'Model unavailable' }}</span></span>
+            <span class="topbar-divider"></span>
+            <span class="avatar">VF</span>
+          </div>
+        </header>
+        <main class="page-content">
+          {% block content %}{% endblock %}
+        </main>
+        <footer class="app-footer"><span>VisionFlow · YOLO26</span><span data-i18n="footerNote">Traffic intelligence, made actionable.</span></footer>
+      </div>
+    </div>
+    <div class="mobile-scrim" id="mobile-scrim"></div>
+    <div class="toast-region" id="toast-region" aria-live="polite"></div>
+    <script src="{{ url_for('static', filename='js/main.js') }}" defer></script>
+    {% block scripts %}{% endblock %}
+  </body>
+</html>

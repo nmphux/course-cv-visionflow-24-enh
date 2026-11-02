@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}Cameras{% endblock %}
+{% block breadcrumb %}Cameras{% endblock %}
+{% block content %}
+<section class="page-heading heading-with-action">
+  <div><div class="eyebrow" data-i18n="liveOperations">LIVE OPERATIONS</div><h1 data-i18n="camerasTitle">Your camera network.</h1><p data-i18n="camerasSubtitle">Connect and monitor USB cameras and RTSP streams from a single workspace.</p></div>
+  <button class="button button-primary" type="button" id="open-camera-form"><span>＋</span><span data-i18n="connectCamera">Connect a camera</span></button>
+</section>
+<section class="panel camera-toolbar">
+  <div class="camera-summary"><span class="status-dot is-ready"></span><strong id="camera-online-count">0</strong><span data-i18n="camerasOnline">cameras online</span><span class="toolbar-separator"></span><span id="camera-total-count">0</span><span data-i18n="totalCameras">total cameras</span></div>
+  <button class="button button-quiet button-small" type="button" id="refresh-cameras"><span>↻</span><span data-i18n="refresh">Refresh</span></button>
+</section>
+<section id="camera-grid" class="camera-grid" aria-live="polite"><div class="panel loading-state"><span class="spinner"></span><span data-i18n="loadingCameras">Loading camera network…</span></div></section>
+
+<dialog class="camera-dialog" id="camera-dialog">
+  <form id="camera-form" class="dialog-card">
+    <div class="dialog-heading"><div><div class="eyebrow" data-i18n="newConnection">NEW CONNECTION</div><h2 data-i18n="connectCamera">Connect a camera</h2></div><button class="icon-button" type="button" id="close-camera-form" aria-label="Close">×</button></div>
+    <label class="form-field"><span data-i18n="cameraName">Camera name</span><input name="name" required maxlength="80" placeholder="e.g. North entrance" data-i18n-placeholder="cameraNamePlaceholder"></label>
+    <label class="form-field"><span data-i18n="streamSource">Stream source</span><input name="source" required maxlength="512" placeholder="0 or rtsp://camera.local:554/stream" data-i18n-placeholder="streamSourcePlaceholder"><small data-i18n="sourceHelp">Use a device index (0) or an RTSP/RTSPS URL. Source credentials are not persisted.</small></label>
+    <div class="form-note"><span>ⓘ</span><span data-i18n="cameraCapacity">Camera capacity is limited by your device's compute resources.</span></div>
+    <div class="dialog-actions"><button type="button" class="button button-quiet" id="cancel-camera-form" data-i18n="cancel">Cancel</button><button type="submit" class="button button-primary"><span data-i18n="connectCamera">Connect a camera</span><span>→</span></button></div>
+  </form>
+</dialog>
+{% endblock %}
+{% block scripts %}<script src="{{ url_for('static', filename='js/cameras.js') }}" defer></script>{% endblock %}

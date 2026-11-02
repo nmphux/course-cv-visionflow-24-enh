@@ -1,0 +1,31 @@
+project_name: "visionflow_traffic"
+
+data:
+  dataset_yaml: "data/datasets/scratch-vehdet-1k/data.yaml"
+  sample_video: "data/samples/0621_highway.mp4"
+  output_dir: "data/outputs"
+  iou_conflict_threshold: 0.85
+
+  label_audit:
+    enabled: false # true: Bật chế độ "cãi" nhãn tay | false: Tin tuyệt đối nhãn người dùng, bỏ qua bước quét
+    conf_threshold: 0.80 # Model phải tự tin >= 80% mới dám nghi ngờ người dùng gán nhầm
+    auto_overwrite_labels: false # true: Tự động sửa thẳng vào file .txt luôn | false: Chỉ xuất ra file CSV để người dùng tự duyệt
+
+model:
+  base_weights: "yolo26s.pt"
+  trained_weights: "weights/best.pt"
+  export_format: "engine"
+  epochs: 80
+  conf_threshold: 0.25
+
+analytics:
+  counting_line: [[0.05, 0.65], [0.95, 0.65]]
+  ema_smoothing_alpha: 0.85
+
+  # Passenger Car Unit (default = 1.0 for undefined classes)
+  pcu_weights:
+    motobike: 0.3
+    car: 1.0
+    van: 1.4
+    bus: 2.5
+    truck: 2.5

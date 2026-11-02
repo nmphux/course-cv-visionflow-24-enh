@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block title %}Overview{% endblock %}
+{% block breadcrumb %}Overview{% endblock %}
+{% block content %}
+<section class="page-heading heading-with-action">
+  <div>
+    <div class="eyebrow" data-i18n="overviewEyebrow">OPERATIONS OVERVIEW</div>
+    <h1 data-i18n="overviewTitle">Good evening. Here's your traffic snapshot.</h1>
+    <p data-i18n="overviewSubtitle">A live view of your camera network and vehicle activity.</p>
+  </div>
+  <a class="button button-primary" href="{{ url_for('cameras_page') }}"><span>＋</span><span data-i18n="addCamera">Add camera</span></a>
+</section>
+
+<section class="metric-grid" aria-label="Live metrics">
+  <article class="metric-card">
+    <div class="metric-top"><span data-i18n="connectedCameras">Connected cameras</span><span class="metric-icon icon-blue">▣</span></div>
+    <div class="metric-value" id="metric-cameras">—</div>
+    <div class="metric-foot"><span class="status-dot is-ready"></span><span id="metric-online">—</span><span data-i18n="onlineNow">online now</span></div>
+  </article>
+  <article class="metric-card">
+    <div class="metric-top"><span data-i18n="liveDetections">Live detections</span><span class="metric-icon icon-violet">◈</span></div>
+    <div class="metric-value" id="metric-detections">—</div>
+    <div class="metric-foot"><span data-i18n="acrossActiveFeeds">Across active camera feeds</span></div>
+  </article>
+  <article class="metric-card">
+    <div class="metric-top"><span data-i18n="modelReadiness">Model readiness</span><span class="metric-icon icon-green">⬡</span></div>
+    <div class="metric-value metric-word" id="metric-model" data-i18n="{{ 'ready' if model.available else 'unavailable' }}">{{ 'Ready' if model.available else 'Unavailable' }}</div>
+    <div class="metric-foot">{{ model.name }}</div>
+  </article>
+  <article class="metric-card">
+    <div class="metric-top"><span data-i18n="supportedClasses">Vehicle classes</span><span class="metric-icon icon-amber">◉</span></div>
+    <div class="metric-value" id="metric-classes">{{ model.classes|length if model.classes else '—' }}</div>
+    <div class="metric-foot" data-i18n="modelClassesCaption">Defined by your trained model</div>
+  </article>
+</section>
+
+<section class="content-grid overview-grid">
+  <article class="panel camera-panel">
+    <div class="panel-heading">
+      <div><h2 data-i18n="cameraNetwork">Camera network</h2><p data-i18n="cameraNetworkSubtitle">Monitor the feeds that matter to your operation.</p></div>
+      <a class="text-link" href="{{ url_for('cameras_page') }}"><span data-i18n="viewAllCameras">View all cameras</span><span>↗</span></a>
+    </div>
+    <div id="overview-cameras" class="overview-camera-list">
+      <div class="loading-state"><span class="spinner"></span><span data-i18n="loadingCameras">Loading camera network…</span></div>
+    </div>
+  </article>
+  <article class="panel action-panel">
+    <div class="panel-heading"><div><h2 data-i18n="quickActions">Quick actions</h2><p data-i18n="quickActionsSubtitle">Get from insight to action faster.</p></div></div>
+    <a class="action-card" href="{{ url_for('inference_page') }}"><span class="action-icon icon-violet">◈</span><span><strong data-i18n="runInference">Run an inference</strong><small data-i18n="runInferenceHelp">Analyze an image or recorded video</small></span><span class="action-chevron">→</span></a>
+    <a class="action-card" href="{{ url_for('analytics_page') }}"><span class="action-icon icon-blue">⌁</span><span><strong data-i18n="exploreAnalytics">Explore analytics</strong><small data-i18n="exploreAnalyticsHelp">Review detections by class and camera</small></span><span class="action-chevron">→</span></a>
+    <a class="action-card" href="{{ url_for('model_page') }}"><span class="action-icon icon-green">⬡</span><span><strong data-i18n="checkModel">Check your model</strong><small data-i18n="checkModelHelp">Verify the deployed best checkpoint</small></span><span class="action-chevron">→</span></a>
+    <div class="insight-note"><span class="insight-bulb">✦</span><span><strong data-i18n="makeItActionable">Make it actionable</strong><small data-i18n="actionableHelp">Connect a camera to start monitoring live traffic.</small></span></div>
+  </article>
+</section>
+{% endblock %}
+{% block scripts %}<script src="{{ url_for('static', filename='js/overview.js') }}" defer></script>{% endblock %}

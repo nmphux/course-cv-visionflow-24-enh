@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}Analytics{% endblock %}
+{% block breadcrumb %}Analytics{% endblock %}
+{% block content %}
+<section class="page-heading">
+  <div class="eyebrow" data-i18n="liveInsights">LIVE INSIGHTS</div><h1 data-i18n="analyticsTitle">See what's moving.</h1><p data-i18n="analyticsSubtitle">A real-time snapshot of vehicle detections across your active camera feeds.</p>
+</section>
+<section class="metric-grid analytics-metrics">
+  <article class="metric-card"><div class="metric-top"><span data-i18n="activeCameras">Active cameras</span><span class="metric-icon icon-blue">▣</span></div><div class="metric-value" id="analytics-online">—</div><div class="metric-foot" data-i18n="connectedStreams">Connected live streams</div></article>
+  <article class="metric-card"><div class="metric-top"><span data-i18n="vehiclesInView">Vehicles in view</span><span class="metric-icon icon-violet">◈</span></div><div class="metric-value" id="analytics-detections">—</div><div class="metric-foot" data-i18n="currentFrameSnapshot">Current frame snapshot</div></article>
+  <article class="metric-card"><div class="metric-top"><span data-i18n="classesDetected">Classes detected</span><span class="metric-icon icon-amber">◉</span></div><div class="metric-value" id="analytics-classes">—</div><div class="metric-foot" data-i18n="acrossCameraNetwork">Across the camera network</div></article>
+</section>
+<section class="content-grid analytics-grid">
+  <article class="panel chart-panel"><div class="panel-heading"><div><h2 data-i18n="classDistribution">Vehicle class distribution</h2><p data-i18n="classDistributionHelp">Detections currently visible across all connected cameras.</p></div><span class="live-badge"><span class="status-dot is-ready"></span><span data-i18n="live">LIVE</span></span></div><div class="chart-wrap"><canvas id="class-chart" aria-label="Vehicle class distribution chart"></canvas><div class="chart-empty" id="chart-empty" data-i18n="noDetectionsYet">No detections yet. Connect a camera to see live data.</div></div></article>
+  <article class="panel"><div class="panel-heading"><div><h2 data-i18n="byCamera">By camera</h2><p data-i18n="cameraDetectionSnapshot">Current detection snapshot for each feed.</p></div></div><div class="table-wrap"><table class="data-table"><thead><tr><th data-i18n="camera">CAMERA</th><th data-i18n="status">STATUS</th><th data-i18n="vehicles">VEHICLES</th><th data-i18n="fps">FPS</th></tr></thead><tbody id="analytics-camera-rows"><tr><td class="table-empty" colspan="4" data-i18n="loadingCameras">Loading camera network…</td></tr></tbody></table></div></article>
+</section>
+<p class="data-disclaimer" data-i18n="analyticsDisclaimer">Live counts reflect the latest processed frame. Historical trends require a persistent analytics store.</p>
+{% endblock %}
+{% block scripts %}<script src="{{ url_for('static', filename='js/analytics.js') }}" defer></script>{% endblock %}

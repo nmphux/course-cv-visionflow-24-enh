@@ -14,3 +14,4 @@ __pycache__/
 .venv/
 *.egg-info/
 .ipynb_checkpoints/
+yolo26s.pt

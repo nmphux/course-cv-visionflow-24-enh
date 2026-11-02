@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}About{% endblock %}
+{% block breadcrumb %}About{% endblock %}
+{% block content %}
+<section class="page-heading">
+  <div class="eyebrow" data-i18n="platform">THE PLATFORM</div>
+  <h1 data-i18n="aboutTitle">Traffic intelligence, built for the real world.</h1>
+  <p data-i18n="aboutSubtitle">VisionFlow brings trained computer vision models into a practical, operator-friendly workflow.</p>
+</section>
+<section class="content-grid about-grid">
+  <article class="panel about-story">
+    <div class="feature-mark">V</div>
+    <div class="eyebrow" data-i18n="visionflowPlatform">VISIONFLOW PLATFORM</div>
+    <h2 data-i18n="aboutStoryTitle">From model training to measurable operations.</h2>
+    <p data-i18n="aboutStory">Deploy your best YOLO checkpoint, connect cameras, and turn vehicle detections into a clearer view of traffic activity. The platform is designed to keep model, camera, and analytics workflows together.</p>
+    <div class="feature-tags"><span>YOLO26</span><span>Computer vision</span><span>Traffic analytics</span></div>
+  </article>
+  <article class="panel">
+    <div class="panel-heading"><div><h2 data-i18n="builtFor">Designed for operators</h2><p data-i18n="builtForSubtitle">A focused toolset for everyday decisions.</p></div></div>
+    <div class="feature-list">
+      <div class="feature-row"><span class="feature-check">✓</span><span><strong data-i18n="featureCameras">Multi-camera monitoring</strong><small data-i18n="featureCamerasHelp">Manage USB and RTSP video sources in one place.</small></span></div>
+      <div class="feature-row"><span class="feature-check">✓</span><span><strong data-i18n="featureModel">Trained model deployment</strong><small data-i18n="featureModelHelp">Serve detections using the project's best.pt checkpoint.</small></span></div>
+      <div class="feature-row"><span class="feature-check">✓</span><span><strong data-i18n="featureAnalytics">Operational analytics</strong><small data-i18n="featureAnalyticsHelp">Inspect current detections by class and camera.</small></span></div>
+      <div class="feature-row"><span class="feature-check">✓</span><span><strong data-i18n="featureLanguages">English and Vietnamese</strong><small data-i18n="featureLanguagesHelp">Choose your preferred interface language anytime.</small></span></div>
+    </div>
+  </article>
+</section>
+{% endblock %}

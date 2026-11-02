@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}Inference Lab{% endblock %}
+{% block breadcrumb %}Inference lab{% endblock %}
+{% block content %}
+<section class="page-heading">
+  <div class="eyebrow" data-i18n="onDemandAnalysis">ON-DEMAND ANALYSIS</div><h1 data-i18n="inferenceTitle">Put your model to work.</h1><p data-i18n="inferenceSubtitle">Upload images or recorded video and get annotated results from your trained checkpoint.</p>
+</section>
+<section class="content-grid inference-layout">
+  <article class="panel upload-panel">
+    <div class="panel-heading"><div><h2 data-i18n="uploadMedia">Upload media</h2><p data-i18n="uploadMediaHelp">Images and videos, up to 100 MB total per request.</p></div><span class="upload-model-chip"><span class="status-dot {{ 'is-ready' if model.available else 'is-offline' }}"></span>{{ model.name }}</span></div>
+    <form id="inference-form">
+      <label class="dropzone" id="dropzone" for="inference-files">
+        <input id="inference-files" type="file" name="files" accept=".jpg,.jpeg,.png,.webp,.mp4,.mov,.avi,.mkv" multiple>
+        <span class="dropzone-icon">↑</span><strong data-i18n="dropFiles">Drop files here or browse</strong><span data-i18n="supportedFormats">JPG, PNG, WEBP, MP4, MOV, AVI, MKV</span>
+      </label>
+      <div id="selected-files" class="selected-files"></div>
+      <div class="inference-form-footer"><span data-i18n="privacyLocal">Files are processed locally by this server.</span><button class="button button-primary" id="run-inference" type="submit" {{ 'disabled' if not model.available }}><span data-i18n="runInference">Run an inference</span><span>→</span></button></div>
+    </form>
+  </article>
+  <aside class="panel inference-tip"><span class="tip-icon">✦</span><h2 data-i18n="inferenceTipTitle">Built for quick review</h2><p data-i18n="inferenceTipText">Annotated outputs are ready to preview and download as soon as processing completes.</p><div class="tip-stat"><strong>100 MB</strong><span data-i18n="maxUpload">maximum upload size</span></div><div class="tip-stat"><strong>YOLO26</strong><span data-i18n="activeModel">active trained model</span></div></aside>
+</section>
+<section class="panel results-panel" id="results-panel" hidden>
+  <div class="panel-heading"><div><h2 data-i18n="processedResults">Processed results</h2><p data-i18n="processedResultsHelp">Your annotated media is ready for review.</p></div></div>
+  <div class="results-grid" id="inference-results"></div>
+</section>
+{% endblock %}
+{% block scripts %}<script src="{{ url_for('static', filename='js/inference.js') }}" defer></script>{% endblock %}
